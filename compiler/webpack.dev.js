@@ -7,11 +7,14 @@ module.exports = {
   entry: path.resolve(__dirname, '../gallery/app.js'),
   output: {
     filename:'js/bundle.js',
-    path: path.resolve(__dirname, "../dist/assets/" ),
+    path: path.resolve(__dirname, "../dist/assets/" )
   },
   devtool: "source-map",
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    alias: {
+      '>': path.resolve(__dirname, 'src')
+    }
   },
   devServer: {
     contentBase: path.join(__dirname, '../dist'), // boolean | string | array, static file location
@@ -25,14 +28,23 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        loader: "source-map-loader", 
+        enforce: "pre"
+      },
+      {
         test: /\.ts$/,
         loader: 'ts-loader',
         exclude: /node_modules/
       },
-      { 
-        test: /\.(glsl|frag|vert)$/,
-        use: 'raw-loader',
-        exclude: /node_modules/
+      {
+        test: /\.(frag|vert|glsl)$/,
+        use: [
+          {
+            loader: 'glsl-shader-loader',
+            options: {}
+          }
+        ]
       },
       {
         test: /\.less$/,
