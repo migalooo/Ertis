@@ -73,6 +73,10 @@ export default class Renderer {
     this.canvas.height = this.height;
 
     // Try initialising gl
+    // NOTE:
+    // WebGLContextAttributes 
+    // stencil : default false
+    // preserveDrawingBuffer: 如果它的值是true，缓冲区将不会被清零，直到被清除或由作者改写将保留它们的值。默认情况下，它的值是false
     const attributes = {
       preserveDrawingBuffer: this.preserveDrawingBuffer
     };
@@ -83,22 +87,13 @@ export default class Renderer {
       let contextType;
       if (detect.webgl2 && this.prefferedContext === WEBGL2_CONTEXT) {
         contextType = WEBGL2_CONTEXT;
-        const _gl = this.canvas.getContext(
-          'webgl2',
-          attributes
-        ) as WebGL2RenderingContext;
+        const _gl = this.canvas.getContext( 'webgl2', attributes) as WebGL2RenderingContext;
         GL.set(_gl, contextType);
       } else {
         contextType = WEBGL_CONTEXT;
         const _gl =
-          (this.canvas.getContext(
-            'webgl',
-            attributes
-          ) as WebGLRenderingContext) ||
-          (this.canvas.getContext(
-            'experimental-webgl',
-            attributes
-          ) as WebGLRenderingContext);
+          (this.canvas.getContext( 'webgl', attributes) as WebGLRenderingContext) ||
+          (this.canvas.getContext( 'experimental-webgl', attributes) as WebGLRenderingContext);
         GL.set(_gl, contextType);
       }
     } else {
@@ -106,10 +101,12 @@ export default class Renderer {
       return;
     }
 
-    // log(
-    //   `%c${config.name} ${config.version} webgl${GL.webgl2 ? 2 : ''}`,
-    //   'padding: 1px; background: #222; color: #ff00ff'
-    // );
+    // NOTE:
+    // mudium and version are fixed here
+    log(
+      `%c${'medium'} ${'0.0.1'} webgl${GL.webgl2 ? 2 : ''}`,
+      'padding: 1px; background: #222; color: #ff00ff'
+    );
 
     gl = GL.get();
 
@@ -162,7 +159,7 @@ export default class Renderer {
   }
 
   public setDevicePixelRatio(ratio = 1) {
-    this.pixelRatio = ratio || 1;
+    this.pixelRatio = ratio;
     this.setSize(this.width, this.height);
   }
 

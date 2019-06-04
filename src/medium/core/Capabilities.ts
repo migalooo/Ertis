@@ -10,29 +10,24 @@ function getMaxPrecision(
   gl: WebGL2RenderingContext | WebGLRenderingContext,
   precision: string
 ) {
-  if (precision === 'highp') {
+  switch(precision) {
+    case 'highp':
     if (
-      gl.getShaderPrecisionFormat(gl.VERTEX_SHADER, gl.HIGH_FLOAT).precision >
-        0 &&
-      gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT).precision >
-        0
+      gl.getShaderPrecisionFormat(gl.VERTEX_SHADER, gl.HIGH_FLOAT).precision > 0 &&
+      gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT).precision > 0
     ) {
       return 'highp';
     }
-    precision = 'mediump';
-  }
-
-  if (precision === 'mediump') {
+    case 'mediump':
     if (
-      gl.getShaderPrecisionFormat(gl.VERTEX_SHADER, gl.MEDIUM_FLOAT).precision >
-        0 &&
-      gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.MEDIUM_FLOAT)
-        .precision > 0
+      gl.getShaderPrecisionFormat(gl.VERTEX_SHADER, gl.MEDIUM_FLOAT).precision > 0 &&
+      gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.MEDIUM_FLOAT) .precision > 0
     ) {
       return 'mediump';
     }
+    default:
+      return 'lowp';
   }
-  return 'lowp';
 }
 
 function Capabilities(gl: WebGL2RenderingContext | WebGLRenderingContext) {
@@ -51,20 +46,14 @@ function Capabilities(gl: WebGL2RenderingContext | WebGLRenderingContext) {
   }
 
   const maxTextures: number = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
-  const maxVertexTextures: number = gl.getParameter(
-    gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS
-  );
+  const maxVertexTextures: number = gl.getParameter( gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
   const maxTextureSize: number = gl.getParameter(gl.MAX_TEXTURE_SIZE);
   const maxCubemapSize: number = gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE);
 
   const maxAttributes: number = gl.getParameter(gl.MAX_VERTEX_ATTRIBS);
-  const maxVertexUniforms: number = gl.getParameter(
-    gl.MAX_VERTEX_UNIFORM_VECTORS
-  );
+  const maxVertexUniforms: number = gl.getParameter( gl.MAX_VERTEX_UNIFORM_VECTORS);
   const maxVaryings: number = gl.getParameter(gl.MAX_VARYING_VECTORS);
-  const maxFragmentUniforms: number = gl.getParameter(
-    gl.MAX_FRAGMENT_UNIFORM_VECTORS
-  );
+  const maxFragmentUniforms: number = gl.getParameter( gl.MAX_FRAGMENT_UNIFORM_VECTORS);
 
   return {
     maxAttributes,

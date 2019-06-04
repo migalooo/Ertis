@@ -13,21 +13,43 @@ import {
   Constants
 } from '../../medium/index';
 
-// const { guiController } = require('dat.gui')();
 import * as dat from 'dat.gui'
 
 var gui = new dat.GUI()
-console.log(gui)
-// const {__controllers: guiController} = gui 
-const guiController = gui.property
-  // dat.controllers.Controller
-console.log(guiController)
+function initDat(modes) {
+  var options = ['webgl2', 'webgl'];
+  function getQuery(query) {
+    const match = window.location.search.match(/^\?context\=(.+)\&?/)
+    if (match) return match[1]
+  }
+  var setQuery = function setQuery(query, val) {
+    const url = window.location.origin + `?context=${val}`;
+    window.location.href = url;
+  };
+  var guiController = {
+    context: getQuery('context') || options[0]
+  };
+  gui.add(guiController, 'context', options).onChange(function (val) {
+    setQuery('context', val);
+  });
+  return {
+    gui: gui,
+    guiController: guiController,
+    getQuery: getQuery,
+    setQuery: setQuery
+  };
+};
+
+const { guiController } = initDat();
+
+
 
 // Renderer
 const renderer = new Renderer({
   ratio: window.innerWidth / window.innerHeight,
   prefferedContext: guiController
 });
+// 屏幕像素
 renderer.setDevicePixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.canvas);
 
@@ -53,7 +75,7 @@ const axis = new AxisHelper(1);
 scene.add(axis);
 
 // Objects
-const TOTAL_POINTS = 200;
+const TOTAL_POINTS = 600;
 const bufferVertices = new Float32Array(TOTAL_POINTS * 3);
 const range = 3;
 
@@ -95,7 +117,7 @@ const shader = new Material({
   uniforms: {
     uSize: {
       type: 'f',
-      value: 0.5
+      value: 0.2
     }
   },
   drawType: Constants.DRAW_POINTS
