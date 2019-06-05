@@ -6,7 +6,7 @@
     "sourceMap": true
   },
   "compileOnSave": false,
-  "typeRoots": ["webgl2", "dat-gui"],
+  "typeRoots": ["webgl-ext", "webgl2", "dat-gui"],
   "include": [
     "./src/*"
     ],

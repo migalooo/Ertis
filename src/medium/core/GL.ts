@@ -52,15 +52,17 @@ function createBuffer(
 	* @return {Buffer}
 	*/
 function createUniformBuffer(data: Float32Array) {
-  const buffer = gl.createBuffer();
   if (gl instanceof WebGL2RenderingContext) {
+    const buffer = gl.createBuffer();
     gl.bindBuffer(gl.UNIFORM_BUFFER, buffer);
     gl.bufferData(gl.UNIFORM_BUFFER, new Float32Array(data), gl.DYNAMIC_DRAW);
     gl.bindBuffer(gl.UNIFORM_BUFFER, null);
     return buffer;
   } else {
-    return false;
-  }
+    // NOTE: 
+    // 非webgl2 返回FALSE  gl.UNIFORM_BUFFER 为webgl2
+    return false
+  } 
 }
 
 export { webgl2, createBuffer, createUniformBuffer };

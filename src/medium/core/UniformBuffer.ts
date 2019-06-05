@@ -2,7 +2,7 @@ import { createUniformBuffer } from './GL';
 
 export default class UniformBuffer {
   public data: Float32Array;
-  public buffer: WebGLBuffer;
+  public buffer: WebGLBuffer | false;
 
   constructor(data: Float32Array) {
     this.data = data;

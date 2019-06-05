@@ -5,7 +5,6 @@ import * as GL from './GL';
 /*
 	* https://github.com/mrdoob/three.js/blob/dev/src/renderers/webgl/WebGLCapabilities.js
 	*/
-
 function getMaxPrecision(
   gl: WebGL2RenderingContext | WebGLRenderingContext,
   precision: string
@@ -70,10 +69,8 @@ function Capabilities(gl: WebGL2RenderingContext | WebGLRenderingContext) {
 }
 
 function Extensions(gl: WebGL2RenderingContext | WebGLRenderingContext) {
-  const vertexArrayObject =
-    GL.webgl2 || gl.getExtension('OES_vertex_array_object') || false;
-  const angleInstancedArrays =
-    gl.getExtension('ANGLE_instanced_arrays') || false;
+  const vertexArrayObject = GL.webgl2 || gl.getExtension('OES_vertex_array_object') || false;
+  const angleInstancedArrays = gl.getExtension('ANGLE_instanced_arrays') || false;
   const textureFloat = gl.getExtension('OES_texture_float') || false;
 
   return {

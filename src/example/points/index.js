@@ -49,7 +49,7 @@ const renderer = new Renderer({
   ratio: window.innerWidth / window.innerHeight,
   prefferedContext: guiController
 });
-// 屏幕像素
+// NOTE: 屏幕像素
 renderer.setDevicePixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.canvas);
 

@@ -9,8 +9,8 @@ export default class Program {
   public created: boolean;
   public uniformBlocks: object;
   public attributeLocations: object;
-  public compiledVertexShader: string;
-  public compiledFragmentShader: string;
+  public compiledVertexShader: WebGLShader;
+  public compiledFragmentShader: WebGLShader;
 
   constructor() {
     gl = GL.get();
