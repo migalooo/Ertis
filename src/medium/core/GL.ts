@@ -1,4 +1,5 @@
 import { WEBGL2_CONTEXT } from './Constants';
+import { warn } from '../utils/Console';
 
 let gl: WebGL2RenderingContext | WebGLRenderingContext;
 let contextType: string;
@@ -61,7 +62,7 @@ function createUniformBuffer(data: Float32Array) {
   } else {
     // NOTE: 
     // 非webgl2 返回FALSE  gl.UNIFORM_BUFFER 为webgl2
-    return false
+    warn( 'UniformBuffer only support in WebGL2RenderingContext.');
   } 
 }
 

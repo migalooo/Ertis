@@ -124,6 +124,7 @@ const shader = new Material({
 });
 
 const mesh = new Mesh(geometry, shader);
+console.log(mesh)
 
 scene.add(mesh);
 
