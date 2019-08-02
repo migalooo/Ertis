@@ -321,6 +321,7 @@ export default class Material {
       addDefine('pointLights');
     }
 
+
     shader = shader.replace(/#HOOK_PRECISION/g, precision);
     shader = shader.replace(/#HOOK_DEFINES/g, defines);
     shader = shader.replace(/#HOOK_VERTEX_PRE/g, this.hookVertexPre);
